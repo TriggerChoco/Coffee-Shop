@@ -3,6 +3,7 @@ import './App.css';
 import MenuItem from './components/MenuItem';
 import Navbar from './components/Navbar';
 import Weather from './components/Weather';
+import ShoppingCart from './components/ShoppingCart';
 import { fakeMenuItems, fakeMerchItems } from './data';
 
 function App() {
@@ -19,11 +20,6 @@ function App() {
         (position) => {
           console.log('position', position)
           const { latitude, longitude } = position.coords;
-          // //Anchorage 61.2181, -149.9003
-          // getWeatherData(61.2181, -149.9003)
-          // // Death Valley 36.4614, -116.8656
-          // getWeatherData(36.4614, -116.8656)
-          // //browser
           getWeatherData(latitude, longitude)
         },
         (error) => {
@@ -32,6 +28,15 @@ function App() {
       );
     }
   }, [])
+
+  function shoppingCart() {
+    const [menuItems, setMenuItems] = useState([])
+    const [inShoppingCart, setInShoppingCart] = useState([]);
+
+    const updateShoppingCart = (shoppingCartItem) => {
+    setInShoppingCart([...shoppingCart, shoppingCartItem]);
+    }
+}
 
   async function getWeatherData(lat, lon){
     console.log(lat)
@@ -50,25 +55,34 @@ function App() {
   return (
     <>
       <div className='App'>
-        <h1>Coffee Shop Menu</h1>
-        <div>
-          <h3>Coffee</h3>
+        <div className='navbar'>
+          <Navbar shoppingCart={shoppingCart}/>
+        </div>
+        <div className='container'>
+        <div className="row">
+          <div className="col-12">
+            <h1 className={"my-3 text-cnet"}>Coffee Shop Menu</h1>
+            </div>
+          </div>
+          <div className="row my-5">
+          <div className='h3'>Coffee</div>
           {menuItems && menuItems.length > 0 && menuItems.map((menuItem) => (
             <MenuItem key={menuItem.id} item={menuItem.item} price={menuItem.price} image={menuItem.image} altText={menuItem.item} />
         ))}
         </div>
+        </div>
         <div>
-          <h3>Merch</h3>
+        <div className="row">
+          <div className='h3'>Merch</div>
           {merchItems && merchItems.length > 0 && merchItems.map((merchItem) => (
             <MenuItem key={merchItem.id} item={merchItem.item} price={merchItem.price} image={merchItem.image} altText={merchItem.item} />
         ))}
+        </div>
         </div>
       </div>
       <Weather currentTemp={currentTemp} userCity={userCity} />
     </>
   );
-
-  Navbar()
 }
 
 export default App;

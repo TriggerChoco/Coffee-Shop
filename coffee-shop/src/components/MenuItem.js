@@ -1,6 +1,12 @@
 import React from 'react'
 
 export default function MenuItem({image, altText, price, item}) {
+    const addToCart = () => {
+        props.updateShoppingCart(props.item);
+      };
+      
+       <button onClick={addToCart}>Add To Cart</button>
+
   return (
         <div className="col-4">
             <div className="card mb-3" style={{maxWidth: "540px"}}>
