@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function cart() {
+export default function Cart() {
     return (
         <div>
         {props.shoppingCart && props.shoppingCart.length > 0 ? (

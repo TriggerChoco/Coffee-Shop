@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default function MenuItem({image, altText, price, item}) {
+export default function MenuItem({image, altText, price, item, updateShoppingCart, id}) {
     const addToCart = () => {
-        props.updateShoppingCart(props.item);
+        console.log('getting here')
+        updateShoppingCart(id);
       };
-      
-       <button onClick={addToCart}>Add To Cart</button>
 
   return (
         <div className="col-4">
@@ -18,6 +17,7 @@ export default function MenuItem({image, altText, price, item}) {
                         <div className="card-body">     
                             <h5 className="card-title">{item}</h5>
                             <p className="card-text"><small className="text-body-secondary">{`$${price}`}</small></p>
+                            <button onClick={addToCart}>Add To Cart</button>
                         </div>
                     </div>
                 </div>

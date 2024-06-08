@@ -3,7 +3,7 @@ import './App.css';
 import MenuItem from './components/MenuItem';
 import Navbar from './components/Navbar';
 import Weather from './components/Weather';
-import ShoppingCart from './components/ShoppingCart';
+import Cart from './components/Cart';
 import { fakeMenuItems, fakeMerchItems } from './data';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
   const [merchItems, setMerchItems] = useState(fakeMerchItems);
   const [userCity, setUserCity] = useState(null);
   const [currentTemp, setCurrentTemp] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState([]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -29,14 +30,13 @@ function App() {
     }
   }, [])
 
-  function shoppingCart() {
-    const [menuItems, setMenuItems] = useState([])
-    const [inShoppingCart, setInShoppingCart] = useState([]);
-
-    const updateShoppingCart = (shoppingCartItem) => {
-    setInShoppingCart([...shoppingCart, shoppingCartItem]);
+    const updateShoppingCart = (id) => {
+      console.log('shopping cart item', id)
+      const item = menuItems.find(item => item.id === id)
+      console.log('item', item)
+      setShoppingCart([...shoppingCart, item]);
+      console.log('shopping cart', shoppingCart)
     }
-}
 
   async function getWeatherData(lat, lon){
     console.log(lat)
@@ -67,7 +67,7 @@ function App() {
           <div className="row my-5">
           <div className='h3'>Coffee</div>
           {menuItems && menuItems.length > 0 && menuItems.map((menuItem) => (
-            <MenuItem key={menuItem.id} item={menuItem.item} price={menuItem.price} image={menuItem.image} altText={menuItem.item} />
+            <MenuItem key={menuItem.id} id={menuItem.id} item={menuItem.item} price={menuItem.price} image={menuItem.image} altText={menuItem.item} updateShoppingCart={updateShoppingCart} />
         ))}
         </div>
         </div>
