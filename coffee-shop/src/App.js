@@ -35,6 +35,7 @@ function App() {
       const item = menuItems.find(item => item.id === id)
       console.log('item', item)
       setShoppingCart([...shoppingCart, item]);
+      useEffect(() => {
         console.log(shoppingCart)
         }, [shoppingCart])
     }
